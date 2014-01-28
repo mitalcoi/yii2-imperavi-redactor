@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\imperavi;
+namespace mitalcoi\imperavi;
 use yii\web\AssetBundle;
 
 /**
@@ -14,7 +14,7 @@ use yii\web\AssetBundle;
  */
 class FontcolorImperaviRedactorPluginAsset extends AssetBundle
 {
-    public $sourcePath = '@yii/imperavi/assets/plugins/fontcolor';
+    public $sourcePath = '@mitalcoi/imperavi/assets/plugins/fontcolor';
     public $js = [
         'fontcolor.js',
     ];
