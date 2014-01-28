@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\imperavi;
+namespace mitalcoi\imperavi;
 use yii\web\AssetBundle;
 
 /**
@@ -14,7 +14,7 @@ use yii\web\AssetBundle;
  */
 class TextdirectionImperaviRedactorPluginAsset extends AssetBundle
 {
-    public $sourcePath = '@yii/imperavi/assets/plugins/textdirection';
+    public $sourcePath = '@mitalcoi/imperavi/assets/plugins/textdirection';
     public $js = [
         'textdirection.js'
     ];
@@ -22,6 +22,6 @@ class TextdirectionImperaviRedactorPluginAsset extends AssetBundle
 
     ];
     public $depends = [
-        'yii\imperavi\ImperaviRedactorAsset'
+        'mitalcoi\imperavi\ImperaviRedactorAsset'
     ];
 }
