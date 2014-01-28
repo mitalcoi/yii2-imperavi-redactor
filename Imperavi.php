@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\imperavi;
+namespace mitalcoi\imperavi;
 
 use Yii;
 use yii\helpers\Html;
@@ -27,7 +27,7 @@ use yii\helpers\Json;
  * @license https://github.com/asofter/yii2-imperavi-redactor/blob/master/LICENSE.md
  */
 
-class Widget extends \yii\base\Widget
+class Imperavi extends \yii\base\Widget
 {
     /**
      * @var array the options for the Imperavi Redactor.
