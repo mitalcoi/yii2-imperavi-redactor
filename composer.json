@@ -1,5 +1,5 @@
 {
-    "name": "asofter/yii2-imperavi-redactor",
+    "name": "mitalcoi/yii2-imperavi-redactor",
     "description": "Imperavi Redactor WYSIWYG widget (OEM-licensed for Yii 2)",
     "keywords": ["yii", "imperavi redactor", "imperavi"],
     "type": "yii2-extension",
@@ -30,7 +30,6 @@
         "yiisoft/yii2": "*"
     },
     "autoload": {
-        "psr-0": { "yii\\imperavi\\": "" }
-    },
-    "target-dir": "yii/imperavi"
+        "psr-0": { "mitalcoi\\imperavi": "" }
+    }
 }
