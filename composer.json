@@ -29,7 +29,7 @@
     "require": {
         "yiisoft/yii2": "*"
     },
-     "autoload": {
-        "psr-4": { "Imperavi\\": "" }
+    "autoload": {
+        "psr-0": {"mitalcoi\\imperavi": ""}
     }
 }
