@@ -28,8 +28,5 @@
     ],
     "require": {
         "yiisoft/yii2": "*"
-    },
-    "autoload": {
-        "psr-0": { "mitalcoi\\imperavi": "" }
     }
 }
