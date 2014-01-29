@@ -29,11 +29,16 @@ use yii\helpers\Json;
 
 class Imperavi extends \yii\base\Widget
 {
-    /**
-     * @var array the options for the Imperavi Redactor.
-     * Please refer to the corresponding [Imperavi Web page](http://imperavi.com/redactor/docs/)  for possible options.
-     */
-    public $options = [];
+	/**
+	 * @var array the HTML options for input
+	 */
+	public $options = [];
+
+	/**
+	 * @var array the options for the Imperavi Redactor.
+	 * Please refer to the corresponding [Imperavi Web page](http://imperavi.com/redactor/docs/)  for possible options.
+	 */
+	public $clientOptions = [];
 
     /**
      * @var array plugins that you want to use
@@ -92,40 +97,39 @@ class Imperavi extends \yii\base\Widget
     /**
      * Registers Imperavi Redactor JS
      */
-    protected function registerClientScript()
-    {
-        $view = $this->getView();
+	protected function registerClientScript()
+	{
+		$view = $this->getView();
+		/*
+		 * Language fix
+		 * @author <https://github.com/sim2github>
+		 */
+		$appLanguage = strtolower(substr(Yii::$app->language, 0, 2)); //First 2 letters
+		if ($appLanguage != 'en') // By default $language = 'en-US', someone use underscore
+		{
+			$this->clientOptions['lang'] = $appLanguage;
+		}
 
+		// Insert plugins in options
+		if (!empty($this->plugins)) {
+			$this->clientOptions['plugins'] = $this->plugins;
 
-        /*
-         * Language fix
-         * @author <https://github.com/sim2github>
-         */
-        $appLanguage = strtolower(substr(Yii::$app->language , 0, 2)); //First 2 letters
-        if($appLanguage != 'en') // By default $language = 'en-US', someone use underscore
-            $this->options['lang'] = $appLanguage;
+			foreach ($this->clientOptions['plugins'] as $plugin) {
+				$this->registerPlugin($plugin);
+			}
+		}
 
-        // Insert plugins in options
-        if (!empty($this->plugins)) {
-            $this->options['plugins'] = $this->plugins;
-
-            foreach($this->options['plugins'] as $plugin) {
-                $this->registerPlugin($plugin);
-            }
-        }
-
-        $options = empty($this->options) ? '' : Json::encode($this->options);
-        $js = "jQuery('" . $this->selector . "').redactor($options);";
-        $view->registerJs($js);
-    }
+		$options = empty($this->clientOptions) ? '' : Json::encode($this->clientOptions);
+		$js = "jQuery('" . $this->selector . "').redactor($options);";
+		$view->registerJs($js);
+	}
 
     /**
      * Registers a specific Imperavi plugin and the related events
      * @param string $name the name of the Imperavi plugin
      */
     protected function registerPlugin($name) {
-        $name = "yii\\imperavi\\" . ucfirst($name) . "ImperaviRedactorPluginAsset";
-
+		$name = __NAMESPACE__ . ucfirst($name) . "ImperaviRedactorPluginAsset";
         $name::register($this->getView());
     }
 }
