@@ -40,63 +40,63 @@ class Imperavi extends \yii\base\Widget
 	 */
 	public $clientOptions = [];
 
-    /**
-     * @var array plugins that you want to use
-     */
-    public $plugins = [];
+	/**
+	 * @var array plugins that you want to use
+	 */
+	public $plugins = [];
 
-    /*
-     * @var object model for active text area
-     */
-    public $model = null;
+	/*
+	 * @var object model for active text area
+	 */
+	public $model = null;
 
-    /*
-     * @var string selector for init js scripts
-     */
-    protected $selector = null;
+	/*
+	 * @var string selector for init js scripts
+	 */
+	protected $selector = null;
 
-    /*
-     * @var string name of textarea tag or name of attribute
-     */
-    public $attribute = null;
+	/*
+	 * @var string name of textarea tag or name of attribute
+	 */
+	public $attribute = null;
 
-    /*
-     * @var string value for text area (without model)
-     */
-    public $value = '';
+	/*
+	 * @var string value for text area (without model)
+	 */
+	public $value = '';
 
-    /**
-     * Initializes the widget.
-     * If you override this method, make sure you call the parent implementation first.
-     */
-    public function init()
-    {
-        parent::init();
-        if (!isset($this->options['id'])) {
-            $this->options['id'] = $this->getId();
-        }
-    }
+	/**
+	 * Initializes the widget.
+	 * If you override this method, make sure you call the parent implementation first.
+	 */
+	public function init()
+	{
+		parent::init();
+		if (!isset($this->options['id'])) {
+			$this->options['id'] = $this->getId();
+		}
+	}
 
-    /**
-     * Renders the widget.
-     */
-    public function run()
-    {
-        $this->selector = '#' . $this->getId();
+	/**
+	 * Renders the widget.
+	 */
+	public function run()
+	{
+		$this->selector = '#' . $this->getId();
 
-        if (!is_null($this->model)) {
-            echo Html::activeTextarea($this->model, $this->attribute, $this->options);
-        } else {
-            echo Html::textarea($this->attribute, $this->value, $this->options);
-        }
+		if (!is_null($this->model)) {
+			echo Html::activeTextarea($this->model, $this->attribute, $this->options);
+		} else {
+			echo Html::textarea($this->attribute, $this->value, $this->options);
+		}
 
-        ImperaviRedactorAsset::register($this->getView());
-        $this->registerClientScript();
-    }
+		ImperaviRedactorAsset::register($this->getView());
+		$this->registerClientScript();
+	}
 
-    /**
-     * Registers Imperavi Redactor JS
-     */
+	/**
+	 * Registers Imperavi Redactor JS
+	 */
 	protected function registerClientScript()
 	{
 		$view = $this->getView();
@@ -118,18 +118,22 @@ class Imperavi extends \yii\base\Widget
 				$this->registerPlugin($plugin);
 			}
 		}
-
+		if (!isset($this->clientOptions['minHeight'])) {
+			$this->clientOptions['minHeight'] = 300;
+		}
 		$options = empty($this->clientOptions) ? '' : Json::encode($this->clientOptions);
 		$js = "jQuery('" . $this->selector . "').redactor($options);";
 		$view->registerJs($js);
 	}
 
-    /**
-     * Registers a specific Imperavi plugin and the related events
-     * @param string $name the name of the Imperavi plugin
-     */
-    protected function registerPlugin($name) {
+	/**
+	 * Registers a specific Imperavi plugin and the related events
+	 *
+	 * @param string $name the name of the Imperavi plugin
+	 */
+	protected function registerPlugin($name)
+	{
 		$name = __NAMESPACE__ . ucfirst($name) . "ImperaviRedactorPluginAsset";
-        $name::register($this->getView());
-    }
+		$name::register($this->getView());
+	}
 }
